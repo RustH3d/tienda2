@@ -1,0 +1,13 @@
+/* /styles/styles.css */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+  }
+  

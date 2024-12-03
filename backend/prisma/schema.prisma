@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        Int       @id @default(autoincrement())
+  username  String?
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now()) @map("created")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  cart      Carts?
+  orders    Orders[]
+}
+
+model Carts {
+  id               Int                 @id @default(autoincrement())
+  userId           Int                 @unique @map("user_id")
+  createdAt        DateTime            @default(now()) @map("created")
+  updatedAt        DateTime?           @updatedAt @map("updated_at")
+  deletedAt        DateTime?           @map("deleted_at")
+  user             Users               @relation(fields: [userId], references: [id])
+  productAvailable AvailableProducts[]
+}
+
+model Images {
+  id        Int       @id @default(autoincrement())
+  url       String
+  productId Int       @unique
+  products  Products  @relation(fields: [productId], references: [id])
+  createdAt DateTime  @default(now()) @map("created")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+}
+
+model Products {
+  id                Int                @id @default(autoincrement())
+  name              String
+  price             Float
+  description       String
+  createdAt         DateTime           @default(now()) @map("created")
+  updatedAt         DateTime?          @updatedAt @map("updated_at")
+  deletedAt         DateTime?          @map("deleted_at")
+  categories        Categories[]
+  availableProducts AvailableProducts?
+  productsSelled    ProductsSelled?
+  Images            Images?
+}
+
+model Providers {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  createdAt         DateTime            @default(now()) @map("created")
+  updatedAt         DateTime?           @updatedAt @map("updated_at")
+  deletedAt         DateTime?           @map("deleted_at")
+  availableProducts AvailableProducts[]
+}
+
+model AvailableProducts {
+  id         Int       @id @default(autoincrement())
+  quantity   Int
+  productId  Int       @unique
+  products   Products  @relation(fields: [productId], references: [id])
+  createdAt  DateTime  @default(now()) @map("created")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
+  deletedAt  DateTime? @map("deleted_at")
+  carts      Carts[]
+  providerId Int
+  providers  Providers @relation(fields: [providerId], references: [id])
+}
+
+model ProductsSelled {
+  id        Int       @id @default(autoincrement())
+  quantity  Int
+  productId Int       @unique
+  products  Products  @relation(fields: [productId], references: [id])
+  ticketId  String    @unique
+  ticket    Ticket    @relation(fields: [ticketId], references: [id])
+  createdAt DateTime  @default(now()) @map("created")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+}
+
+model Categories {
+  id        Int        @id @default(autoincrement())
+  name      String
+  products  Products[]
+  createdAt DateTime   @default(now()) @map("created")
+  updatedAt DateTime?  @updatedAt @map("updated_at")
+  deletedAt DateTime?  @map("deleted_at")
+}
+
+model Orders {
+  id        Int       @id @default(autoincrement())
+  total     Float
+  userId    Int       @unique
+  users     Users     @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now()) @map("created")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+}
+
+model Ticket {
+  id             String           @id @default(cuid())
+  createdAt      DateTime         @default(now()) @map("created")
+  updatedAt      DateTime?        @updatedAt @map("updated_at")
+  deletedAt      DateTime?        @map("deleted_at")
+  productsSelled ProductsSelled[]
+}
