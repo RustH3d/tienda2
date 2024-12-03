@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
+import '../styles/styles.css';
+import { Link } from 'react-router-dom'; 
+
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -37,6 +40,18 @@ const Home = () => {
       ) : (
         <p>No hay productos disponibles.</p>
       )}
+
+<div className="button-container">
+        {/* Botón para ir al login */}
+        <Link to="/login">
+          <button className="home-button">Iniciar sesión</button>
+        </Link>
+
+        {/* Botón para ir al registro */}
+        <Link to="/register">
+          <button className="home-button">Registrarse</button>
+        </Link>
+      </div>
     </div>
   );
 };

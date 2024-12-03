@@ -23,6 +23,43 @@
     text-align: center;
   }
   
+/* Estilos para la cuadrícula de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columnas por fila */
+  gap: 20px; /* Espacio entre los productos */
+  width: 100%;
+  max-width: 1200px; /* Limita el ancho máximo */
+  margin-top: 20px;
+  justify-items: center; /* Centra las tarjetas de productos */
+}
+
+/* Ajuste para productos responsivos (cuando la pantalla es más pequeña) */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas por fila en pantallas extra pequeñas */
+  }
+}
+
+@media (max-width: 400px) {
+  .product-grid {
+    grid-template-columns: 1fr; /* 1 columna por fila en pantallas muy pequeñas */
+  }
+}
+
+
   .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -75,5 +112,81 @@
   .product-card p {
     margin: 5px 0;
   }
+
+ /* Asegura que el body y html ocupen toda la altura */
+html, body {
+  height: 100%;  /* El body debe ocupar toda la altura de la pantalla */
+  margin: 0;     /* Elimina márgenes predeterminados */
+  padding: 0;    /* Elimina padding por defecto */
+}
+
+/* Asegura que el fondo ocupe toda la pantalla */
+.home {
+  background-color: #538f97; /* Color frío, azul suave */
+  height: 100vh; /* Asegura que el contenedor principal ocupe el 100% de la altura */
+  width: 100%;  /* Ocupa todo el ancho */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Título de la página */
+.home h1 {
+  font-size: 36px;
+  color: #00796b; /* Color verde azulado */
+  margin-bottom: 20px;
+}
+
+/* Contenedor de botones */
+.home .button-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Estilos de los botones */
+.home .button-container button {
+  padding: 10px 20px;
+  background-color: #00796b; /* Color frío, verde azulado */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto hover sobre los botones */
+.home .button-container button:hover {
+  background-color: #004d40; /* Tono más oscuro */
+}
+
+
+.button-container {
+  display: flex;
+  gap: 20px; /* Espacio entre los botones */
+}
+
+.button-container {
+  position: absolute; /* Posiciona los botones respecto al contenedor */
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 20px; /* Espacio entre los botones */
+}
+
+/* Estilos de los botones */
+.home-button {
+  padding: 10px 20px;
+  background-color: #00796b; /* Color frío, verde azulado */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;  /* Eliminar subrayado de los enlaces */
+}
   
   
