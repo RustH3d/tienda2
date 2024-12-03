@@ -135,8 +135,9 @@ html, body {
 /* Título de la página */
 .home h1 {
   font-size: 36px;
-  color: #00796b; /* Color verde azulado */
+  color: #fdfdfd; /* Color verde azulado */
   margin-bottom: 20px;
+  border: #333;
 }
 
 /* Contenedor de botones */
