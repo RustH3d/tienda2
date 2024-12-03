@@ -31,37 +31,40 @@
   }
   
   /* styles.css o el archivo CSS correspondiente */
-.product-card {
-  width: 200px; /* Ancho deseado */
-  height: 300px; /* Altura fija o proporcional */
-  padding: 10px;
-  border: 1px solid #ddd; /* Borde opcional */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff; /* Fondo opcional */
-}
-
-.product-image {
-  width: 100%; /* La imagen ocupará todo el ancho del contenedor */
-  max-width: 150px; /* Máximo tamaño de la imagen */
-  max-height: 200px; /* Altura máxima */
-  object-fit: contain; /* Asegura que la imagen no se deforme */
-  margin-bottom: 10px;
-}
-
-.product-name, .product-price {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.product-price {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 10px;
-}
+  .product-card {
+    width: 200px;
+    height: 350px; /* Altura ajustada */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Bordes redondeados */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  .product-image {
+    width: 100%;
+    max-width: 150px;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+  
+  .product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .product-price {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px; /* Ajuste para mover el precio un poco más arriba */
+    margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+  }
 
   
   .product-card h2 {
