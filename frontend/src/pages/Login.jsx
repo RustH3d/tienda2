@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import axios from 'axios';
 import './Login.css';
 
 const LoginPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Inicializa navigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +19,9 @@ const LoginPage = ({ onLogin }) => {
       if (onLogin) {
         onLogin(response.data);
       }
+
+      // Redirige al Dashboard
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error al iniciar sesión:', error.response?.data || error.message);
     }

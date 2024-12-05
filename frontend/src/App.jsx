@@ -21,6 +21,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<Profile />} /> {/* Página de perfil */}
+        <Route path="/dashboard" element={<Profile />} />
       </Routes>
     </BrowserRouter>
     </AuthProvider>
