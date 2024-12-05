@@ -89,49 +89,32 @@ app.post('/register', async (req, res) => {
 
 // Login de usuarios
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
+ const { username, password } = req.body;
+ 
   try {
-    const userResult = await pool.query('SELECT u.*, r.role_name AS profile FROM users u JOIN roles r ON u.role_id = r.role_id WHERE username = $1', [username]);
+    const userResult = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 
     if (userResult.rows.length === 0) {
-      return res.status(400).json({ error: 'User not found' });
+      return res.status(400).json({ error: 'Usuario no encontrado' });
     }
 
     const user = userResult.rows[0];
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      return res.status(403).json({ error: 'Invalid password' });
+      return res.status(403).json({ error: 'Contraseña incorrecta' });
     }
 
-    const token = jwt.sign(
-      { userId: user.user_id, username: user.username, profile: user.profile },
-      SECRET_KEY,
-      { expiresIn: '1h' }
-    );
+    const token = jwt.sign({ userId: user.user_id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+
+    console.log('Token generado:', token); // Verifica el token
 
     res.json({ token });
   } catch (error) {
-    console.error('Error logging in:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Error al iniciar sesión:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
-});
-
-// Ruta para actualizar el rol del usuario
-app.put('/profile/role', authenticate, async (req, res) => {
-  const { role_id } = req.body;
-
-  if (!role_id) {
-    return res.status(400).json({ error: 'Role ID is required' });
-  }
-
-  try {
-    await pool.query('UPDATE users SET role_id = $1 WHERE user_id = $2', [role_id, req.user.userId]);
-    res.status(200).json({ message: 'Role updated successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  console.log('Cuerpo recibido:', req.body);
 });
 
 // Ruta para actualizar la imagen de perfil del usuario

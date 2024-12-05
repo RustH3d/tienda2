@@ -3,7 +3,6 @@ import ProductCard from '../components/ProductCard';
 import '../styles/styles.css';
 import { Link } from 'react-router-dom'; 
 
-
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +28,18 @@ const Home = () => {
   return (
     <div className="home">
       <h1>Bienvenido a la tienda</h1>
+      
+      {/* Botones de login y registro en la esquina superior derecha */}
+      <div className="button-container">
+        <Link to="/login">
+          <button className="home-button">Iniciar sesión</button>
+        </Link>
+
+        <Link to="/register">
+          <button className="home-button">Registrarse</button>
+        </Link>
+      </div>
+
       {loading ? (
         <p>Cargando productos...</p>
       ) : products.length > 0 ? (
@@ -40,18 +51,6 @@ const Home = () => {
       ) : (
         <p>No hay productos disponibles.</p>
       )}
-
-<div className="button-container">
-        {/* Botón para ir al login */}
-        <Link to="/login">
-          <button className="home-button">Iniciar sesión</button>
-        </Link>
-
-        {/* Botón para ir al registro */}
-        <Link to="/register">
-          <button className="home-button">Registrarse</button>
-        </Link>
-      </div>
     </div>
   );
 };
